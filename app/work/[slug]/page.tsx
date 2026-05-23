@@ -1,106 +1,20 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import type { ReactNode } from "react";
 import KrLogo from "@/components/KrLogo";
 import Eyebrow from "@/components/Eyebrow";
 import PhotoSlot from "@/components/PhotoSlot";
 import { ArrowLeft } from "@/components/Arrow";
-
-type Project = {
-  slug: string;
-  brand: string;
-  title: string;
-  tag: string;
-  hero: string;
-  thumbs: { label: string }[];
-  insight: ReactNode;
-  idea: ReactNode;
-  execution: ReactNode;
-};
-
-const PROJECTS: Record<string, Project> = {
-  nike: {
-    slug: "nike",
-    brand: "Nike",
-    title: "Just Do It. Tomorrow",
-    tag: "Campaign Concept",
-    hero: "HERO · NIKE HOODIE · 'JUST DO IT. TOMORROW.'",
-    thumbs: [
-      { label: "PHONE · STORY" },
-      { label: "OOH · NIGHT" },
-      { label: "STILL · MUG" },
-    ],
-    insight: (
-      <>
-        La motivazione non è costante.
-        <br />
-        La rimandiamo. Sempre.
-      </>
-    ),
-    idea: "Rendiamo il rimando parte del messaggio.",
-    execution: (
-      <>
-        Campagna integrata con OOH, social film,
-        <br />
-        storie, copy e attivazioni.
-      </>
-    ),
-  },
-  netflix: {
-    slug: "netflix",
-    brand: "Netflix",
-    title: "Banner Series",
-    tag: "Social Campaign",
-    hero: "HERO · NETFLIX PHONE · BANNER FRAMES",
-    thumbs: [
-      { label: "PHONE · MOCKUP" },
-      { label: "STORY · LOOP" },
-      { label: "GRID · POST" },
-    ],
-    insight: "Lo scroll è il nuovo trailer.",
-    idea: "Trasformiamo i banner social in piccoli pilot.",
-    execution: "Serie di banner episodici su Instagram e TikTok, con call to next episode.",
-  },
-  dove: {
-    slug: "dove",
-    brand: "Dove",
-    title: "Real Beauty, Real Talk",
-    tag: "Social Idea",
-    hero: "HERO · DOVE · TOTE BAG STILL",
-    thumbs: [
-      { label: "TOTE · STILL" },
-      { label: "LIVE · CHAT" },
-      { label: "WALL · QUOTE" },
-    ],
-    insight: "Le persone non vogliono altre rassicurazioni. Vogliono parlare.",
-    idea: "Una conversazione vera, non una dichiarazione.",
-    execution: "Live talks, content episodici e drop di merch con copy diretto.",
-  },
-  spotify: {
-    slug: "spotify",
-    brand: "Spotify",
-    title: "Playlist Personality",
-    tag: "OOH Campaign",
-    hero: "HERO · SPOTIFY · BILLBOARD NIGHT",
-    thumbs: [
-      { label: "OOH · CITY" },
-      { label: "OOH · METRO" },
-      { label: "POSTER · WHEATPASTE" },
-    ],
-    insight: "La playlist dice di te più di un profilo.",
-    idea: "Le playlist diventano ritratti pubblici.",
-    execution: "OOH cittadini con quote-as-portrait, accompagnati da social cut e cover personalizzate.",
-  },
-};
+import { PROJECTS, getProject } from "@/lib/projects";
+import type { ReactNode } from "react";
 
 export function generateStaticParams() {
-  return Object.keys(PROJECTS).map((slug) => ({ slug }));
+  return PROJECTS.map((p) => ({ slug: p.slug }));
 }
 
 type Params = { params: { slug: string } };
 
 export default function ProjectDetailPage({ params }: Params) {
-  const project = PROJECTS[params.slug];
+  const project = getProject(params.slug);
   if (!project) notFound();
 
   return (
@@ -121,7 +35,7 @@ export default function ProjectDetailPage({ params }: Params) {
         }}
       >
         <Link
-          href="/work"
+          href="/#work"
           className="kr-eyebrow"
           style={{
             display: "inline-flex",
@@ -132,14 +46,15 @@ export default function ProjectDetailPage({ params }: Params) {
         >
           <ArrowLeft size={14} /> Back to work
         </Link>
-        <KrLogo size={20} color="var(--kr-bone)" />
+        <KrLogo size={20} color="var(--kr-bone)" href="/" />
       </div>
 
       <div
         className="kr-grid"
         style={{
           flex: 1,
-          padding: "0 var(--kr-margin) 32px",
+          padding: "0 var(--kr-margin) 56px",
+          display: "grid",
           gridTemplateColumns: "1fr 1.1fr",
           gap: 56,
         }}
@@ -172,7 +87,7 @@ export default function ProjectDetailPage({ params }: Params) {
               display: "flex",
               flexDirection: "column",
               gap: 28,
-              maxWidth: 420,
+              maxWidth: 460,
             }}
           >
             <ProjectBlock label="Insight" body={project.insight} />
@@ -182,9 +97,10 @@ export default function ProjectDetailPage({ params }: Params) {
         </section>
         <section style={{ display: "flex", flexDirection: "column", gap: 20 }}>
           <PhotoSlot
-            label={project.hero}
+            label={`HERO · ${project.brand}`}
             ratio="1/1"
             tone="dark"
+            src={project.hero}
             style={{ flex: 1 }}
           />
           <div
@@ -195,7 +111,13 @@ export default function ProjectDetailPage({ params }: Params) {
             }}
           >
             {project.thumbs.map((t) => (
-              <PhotoSlot key={t.label} label={t.label} ratio="3/4" tone="dark" />
+              <PhotoSlot
+                key={t.label}
+                label={t.label}
+                ratio="3/4"
+                tone="dark"
+                src={t.src}
+              />
             ))}
           </div>
         </section>
