@@ -1,0 +1,177 @@
+/* =========================================================
+   KR. — Design System Tokens
+   Portfolio Katia Retillo / Copywriter & Creative Strategist
+   ========================================================= */
+
+:root {
+  /* -------- Palette ----------------------------------------- */
+  --kr-ink:        #0E0E0E;
+  --kr-ink-2:      #1A1916;
+  --kr-ink-soft:   #5C5A53;
+  --kr-paper-soft: #8A867C;
+  --kr-bone:       #EFEBE1;
+  --kr-bone-2:     #E6E1D4;
+  --kr-bone-3:     #F6F3EB;
+  --kr-rule-ink:   rgba(14, 14, 14, 0.14);
+  --kr-rule-bone:  rgba(239, 235, 225, 0.18);
+
+  /* -------- Typography ------------------------------------- */
+  --kr-font-display: "Cormorant Garamond", "Times New Roman", serif;
+  --kr-font-sans:    "Geist", "Helvetica Neue", Arial, sans-serif;
+  --kr-font-mono:    "Geist Mono", ui-monospace, monospace;
+
+  --kr-fs-display-xl: clamp(80px, 9vw, 168px);
+  --kr-fs-display-l:  clamp(48px, 5.2vw, 88px);
+  --kr-fs-display-m:  clamp(36px, 3.4vw, 56px);
+  --kr-fs-display-s:  clamp(26px, 2.2vw, 36px);
+
+  --kr-fs-body:    16px;
+  --kr-fs-body-s:  14px;
+  --kr-fs-meta:    13px;
+  --kr-fs-eyebrow: 11px;
+
+  --kr-lh-tight:  0.96;
+  --kr-lh-snug:   1.12;
+  --kr-lh-normal: 1.45;
+  --kr-lh-prose:  1.6;
+
+  --kr-tr-display: -0.02em;
+  --kr-tr-body:     0;
+  --kr-tr-eyebrow:  0.16em;
+
+  --kr-w-light:    300;
+  --kr-w-regular:  400;
+  --kr-w-medium:   500;
+  --kr-w-semi:     600;
+
+  /* -------- Spacing ---------------------------------------- */
+  --kr-s-1:  4px;
+  --kr-s-2:  8px;
+  --kr-s-3:  12px;
+  --kr-s-4:  16px;
+  --kr-s-5:  24px;
+  --kr-s-6:  32px;
+  --kr-s-7:  48px;
+  --kr-s-8:  64px;
+  --kr-s-9:  96px;
+  --kr-s-10: 128px;
+  --kr-s-11: 160px;
+
+  /* -------- Layout ----------------------------------------- */
+  --kr-container: 1440px;
+  --kr-gutter:    24px;
+  --kr-margin:    64px;
+  --kr-radius:    0px;
+  --kr-radius-sm: 2px;
+
+  /* -------- Motion ----------------------------------------- */
+  --kr-ease:     cubic-bezier(0.2, 0.6, 0.2, 1);
+  --kr-dur-fast: 160ms;
+  --kr-dur-med:  280ms;
+  --kr-dur-slow: 520ms;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--kr-ink);
+  color: var(--kr-bone);
+  font-family: var(--kr-font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; }
+
+/* =========================================================
+   Theme surfaces
+   ========================================================= */
+.theme-dark  { background: var(--kr-ink);   color: var(--kr-bone);  }
+.theme-light { background: var(--kr-bone);  color: var(--kr-ink);   }
+.theme-paper { background: var(--kr-bone-2); color: var(--kr-ink);  }
+
+/* =========================================================
+   Primitive type classes
+   ========================================================= */
+.kr-display-xl { font: var(--kr-w-regular) var(--kr-fs-display-xl)/var(--kr-lh-tight) var(--kr-font-display); letter-spacing: var(--kr-tr-display); }
+.kr-display-l  { font: var(--kr-w-regular) var(--kr-fs-display-l)/var(--kr-lh-snug)  var(--kr-font-display); letter-spacing: var(--kr-tr-display); }
+.kr-display-m  { font: var(--kr-w-regular) var(--kr-fs-display-m)/var(--kr-lh-snug)  var(--kr-font-display); letter-spacing: -0.005em; }
+.kr-display-s  { font: var(--kr-w-regular) var(--kr-fs-display-s)/1.2                var(--kr-font-display); }
+.kr-lead       { font: var(--kr-w-regular) 20px/1.45                                  var(--kr-font-display); }
+.kr-body       { font: var(--kr-w-regular) var(--kr-fs-body)/var(--kr-lh-prose)      var(--kr-font-sans); }
+.kr-body-s     { font: var(--kr-w-regular) var(--kr-fs-body-s)/var(--kr-lh-normal)   var(--kr-font-sans); }
+.kr-meta       { font: var(--kr-w-regular) var(--kr-fs-meta)/1.3                     var(--kr-font-sans); }
+.kr-eyebrow    { font: var(--kr-w-medium)  var(--kr-fs-eyebrow)/1                    var(--kr-font-sans);
+                 letter-spacing: var(--kr-tr-eyebrow); text-transform: uppercase; }
+
+/* =========================================================
+   Atoms
+   ========================================================= */
+.kr-rule { height: 1px; background: currentColor; opacity: 0.18; border: 0; }
+
+.kr-link {
+  color: inherit; text-decoration: none;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 2px;
+  transition: opacity var(--kr-dur-fast) var(--kr-ease);
+}
+.kr-link:hover { opacity: 0.6; }
+
+.kr-btn {
+  display: inline-flex; align-items: center; gap: var(--kr-s-3);
+  padding: 14px 22px;
+  font: var(--kr-w-medium) var(--kr-fs-meta)/1 var(--kr-font-sans);
+  letter-spacing: var(--kr-tr-eyebrow); text-transform: uppercase;
+  background: var(--kr-ink); color: var(--kr-bone);
+  border: 1px solid var(--kr-ink);
+  cursor: pointer;
+  transition: transform var(--kr-dur-fast) var(--kr-ease),
+              background var(--kr-dur-fast) var(--kr-ease);
+}
+.kr-btn:hover { transform: translateY(-1px); }
+.kr-btn--ghost { background: transparent; color: var(--kr-ink); }
+
+.kr-nav-link {
+  font: var(--kr-w-medium) var(--kr-fs-eyebrow)/1 var(--kr-font-sans);
+  letter-spacing: var(--kr-tr-eyebrow); text-transform: uppercase;
+  color: inherit; text-decoration: none;
+  padding: 6px 0;
+  border-bottom: 1px solid transparent;
+  transition: opacity var(--kr-dur-fast) var(--kr-ease);
+}
+.kr-nav-link:hover { opacity: 0.65; }
+.kr-nav-link[aria-current="page"] { border-bottom-color: currentColor; }
+
+/* =========================================================
+   Layout utilities — used by pages, overridable inline.
+   ========================================================= */
+.kr-grid { display: grid; }
+.kr-split-2  { grid-template-columns: 1.05fr 1fr; }
+.kr-split-3  { grid-template-columns: repeat(3, 1fr); }
+.kr-split-4  { grid-template-columns: repeat(4, 1fr); }
+
+/* =========================================================
+   Responsive
+   ========================================================= */
+@media (max-width: 1024px) {
+  .kr-grid { grid-template-columns: 1fr !important; }
+  .kr-split-4 { grid-template-columns: repeat(2, 1fr) !important; }
+}
+
+@media (max-width: 900px) {
+  :root {
+    --kr-margin: 24px;
+  }
+  .kr-nav-items {
+    gap: 18px !important;
+  }
+  .kr-split-3 { grid-template-columns: 1fr !important; }
+}
+
+@media (max-width: 600px) {
+  .kr-split-4 { grid-template-columns: 1fr !important; }
+  .kr-hide-sm { display: none !important; }
+}
